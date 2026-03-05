@@ -1,16 +1,20 @@
 from pocketflow import Flow
-from nodes import GetQuestionNode, AnswerNode
 
-def create_qa_flow():
-    """Create and return a question-answering flow."""
-    # Create nodes
-    get_question_node = GetQuestionNode()
-    answer_node = AnswerNode()
-    
-    # Connect nodes in sequence
-    get_question_node >> answer_node
-    
-    # Create flow starting with input node
-    return Flow(start=get_question_node)
+from nodes import ParseInputNode, SearchRestaurantsNode, RankAndRecommendNode
 
-qa_flow = create_qa_flow()
+
+def create_restaurant_flow() -> Flow:
+    """Create and return the restaurant suggestion flow."""
+
+    parse_node = ParseInputNode()
+    search_node = SearchRestaurantsNode()
+    rank_node = RankAndRecommendNode()
+
+    # Linear router-worker style pipeline
+    parse_node >> search_node
+    search_node >> rank_node
+
+    return Flow(start=parse_node)
+
+
+restaurant_flow = create_restaurant_flow()
