@@ -46,12 +46,25 @@ This is a project template for Agentic Coding with [Pocket Flow](https://github.
     pip install -r requirements.txt
     ```
 
-  3. Create a `.env` file in the project root with at least:
+  3. Create a `.env` file in the project root (same folder as `main.py`).
+
+    At minimum, you need your API keys:
 
     ```bash
     OPENAI_API_KEY=your-openai-key
     GOOGLE_MAPS_API_KEY=your-google-maps-key
     ```
+
+    This template also uses Gemini via `utils/call_llm.py`, which reads from
+    environment variables loaded by `load_dotenv()` in `main.py`:
+
+    ```bash
+    GEMINI_API_KEY=your-gemini-key
+    GEMINI_MODEL=gemini-2.5-flash  # optional, has a default
+    ```
+
+    For local development, you can edit the provided `.env` file and **should not**
+    commit it. Add `.env` to your `.gitignore` if you plan to push this repo.
 
   ### Running the app
 
