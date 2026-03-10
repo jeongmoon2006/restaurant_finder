@@ -24,3 +24,62 @@ This is a project template for Agentic Coding with [Pocket Flow](https://github.
   - Check out the [Agentic Coding Guidance](https://the-pocket.github.io/PocketFlow/guide.html)
     
   - Check out the [YouTube Tutorial](https://www.youtube.com/@ZacharyLLM?sub_confirmation=1)
+
+  ---
+
+  ## Restaurant Suggestion Agent
+
+  This repo now contains a small example app that uses PocketFlow to build a **Restaurant Suggestion Agent**.
+
+  Given a free-text description including **location**, **budget**, and **occasion** (e.g., "romantic anniversary dinner in San Francisco, mid-range budget"), the agent will:
+
+  1. Parse your query into structured fields (coordinates, price level, occasion tags).
+  2. Call a restaurant search API (Google Places) to fetch real candidates.
+  3. Use an LLM to rank those candidates against your occasion and return the **top 3** with reasons.
+
+  ### Setup
+
+  1. Create and activate a virtual environment (optional but recommended).
+  2. Install dependencies:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+  3. Create a `.env` file in the project root (same folder as `main.py`).
+
+    At minimum, you need your API keys:
+
+    ```bash
+    OPENAI_API_KEY=your-openai-key
+    GOOGLE_MAPS_API_KEY=your-google-maps-key
+    ```
+
+    This template also uses Gemini via `utils/call_llm.py`, which reads from
+    environment variables loaded by `load_dotenv()` in `main.py`:
+
+    ```bash
+    GEMINI_API_KEY=your-gemini-key
+    GEMINI_MODEL=gemini-2.5-flash  # optional, has a default
+    ```
+
+    For local development, you can edit the provided `.env` file and **should not**
+    commit it. Add `.env` to your `.gitignore` if you plan to push this repo.
+
+  ### Running the app
+
+  From the project root:
+
+  ```bash
+  python main.py
+  ```
+
+  You will be prompted:
+
+  > Describe what you're looking for (location, budget, occasion).
+
+  Example:
+
+  > Romantic anniversary dinner near downtown San Francisco, medium budget, quiet atmosphere
+
+  The app will print the top 3 restaurant recommendations with name, address, rating, and a short reason for each choice.
